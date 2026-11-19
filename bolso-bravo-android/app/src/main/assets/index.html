@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#151515" />
+  <meta name="description" content="Seu dinheiro tem testemunha. E ela não tem paciência." />
+  <link rel="icon" type="image/svg+xml" href="mascote.svg" />
+  <title>Bolso Bravo — Seu dinheiro tem testemunha</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="bridge-api.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Bolso Bravo, página inicial"><span class="brand-mark"><i></i><i></i></span><span>BOLSO<span class="brand-light">BRAVO</span><small>Seu dinheiro tem testemunha.</small></span></a>
+      <nav class="desktop-nav" aria-label="Navegação"><button data-tab="home" class="nav-item active">Visão geral</button><button data-tab="transactions" class="nav-item">Extrato</button><button data-tab="settings" class="nav-item">Ajustes</button></nav>
+      <button id="bank-top" class="bank-button"><span class="bank-dot"></span><span id="bank-top-text">Conectar banco</span><span class="arrow-up">↗</span></button>
+    </header>
+
+    <main>
+      <section class="home-view view active" id="view-home">
+        <div class="intro-row">
+          <div><div class="eyebrow"><span class="little-spark">✳</span> PAINEL DE SOBREVIVÊNCIA FINANCEIRA</div><h1>Seu saldo.<br/><em>Meu julgamento.</em></h1></div>
+          <div class="period"><button id="prev-month" aria-label="Mês anterior">←</button><span id="month-name">Novembro 2026</span><button id="next-month" aria-label="Próximo mês">→</button></div>
+        </div>
+        <div class="dashboard-grid">
+          <section class="mascot-panel" aria-label="Mascote e julgamento">
+            <div class="mascot-meta"><span class="pill-lime"><span class="pulse-dot"></span> NA ESCUTA</span><span class="mascot-meta-note">Fiscal não remunerado</span></div>
+            <div class="mascot-stage" id="mascot-stage"><div class="mascot-echo"></div><div class="mascot mood-neutral" id="mascot" role="img" aria-label="Mascote redondo, preto, com dois olhos brancos"><div class="eye eye-left"></div><div class="eye eye-right"></div></div><div class="mascot-ground"></div><span class="mascot-star s1">✳</span><span class="mascot-star s2">✳</span></div>
+            <div class="mascot-quote"><div class="quote-top"><span>O VEREDITO</span><span id="mood-label">● DESCONFIADO</span></div><p id="mascot-says">Eu tô de olho em você. E nas suas compras também.</p></div>
+            <button class="judge-button" id="judge-button">ME JULGA DE NOVO <span>↗</span></button>
+          </section>
+
+          <section class="finance-panel" aria-label="Resumo financeiro">
+            <div class="card-top"><span class="section-eyebrow">RESUMO DO MÊS</span><span class="pill-outline" id="source-pill">● DEMONSTRAÇÃO</span></div>
+            <p class="number-caption">Você já torrou</p><div class="big-number" id="spent">R$ 0,00</div>
+            <div class="budget-row"><span>Do limite que você definiu</span><strong id="budget">R$ 0,00</strong></div>
+            <div class="progress-track" role="progressbar" id="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progress-fill"></div></div>
+            <div class="balance-row"><div><span class="micro-label">AINDA PODE GASTAR</span><strong id="remaining">R$ 0,00</strong></div><div class="percent-block"><span class="micro-label">LIMITE USADO</span><strong id="percent">0%</strong></div></div>
+            <div class="finance-divider"></div>
+            <div class="income-row"><div class="income-icon">↙</div><div><span>Entradas no mês</span><strong id="income">R$ 0,00</strong></div><span class="income-tag">RESPIRO</span></div>
+            <button id="edit-budget" class="text-action">Ajustar limite mensal <span>↗</span></button>
+          </section>
+        </div>
+
+        <div class="bottom-grid">
+          <section class="transactions-card"><div class="section-top"><div><div class="section-eyebrow">REGISTRO CRIMINAL</div><h2>Últimas movimentações<span class="title-punct">.</span></h2></div><button class="view-all" id="view-all">Ver extrato <span>↗</span></button></div><div id="transactions-preview" class="transaction-list"></div></section>
+          <section class="analysis-card"><div class="section-eyebrow">ONDE FOI PARAR?</div><h2>Os suspeitos<span class="title-punct">.</span></h2><p class="analysis-note">Categorias que mais sequestraram seu dinheiro.</p><div id="category-list" class="category-list"></div><button id="sync-home" class="sync-link">↻ Atualizar movimentações</button></section>
+        </div>
+      </section>
+
+      <section class="view transactions-view" id="view-transactions"><div class="subpage-header"><div class="eyebrow">A CENA DO CRIME</div><h1>Seu extrato<span class="title-punct">.</span></h1><p>Não apagamos a memória das suas decisões.</p></div><div class="section-top list-filter"><span id="transactions-count">Movimentações</span><button class="add-button" id="add-button">+ Adicionar teste</button></div><div class="transactions-card full-list"><div class="transaction-list" id="transactions-full"></div></div></section>
+
+      <section class="view settings-view" id="view-settings"><div class="subpage-header"><div class="eyebrow">O SEU JUIZ, SUAS REGRAS</div><h1>Configurações<span class="title-punct">.</span></h1><p>Manda no tom da humilhação. No saldo, nem sempre.</p></div><div class="settings-grid">
+        <div class="settings-card"><h3>Orçamento mensal</h3><p>Quanto você pode gastar antes de o boneco começar a te olhar torto.</p><label for="budget-input">LIMITE EM REAIS</label><input id="budget-input" inputmode="decimal" type="number" min="0" step="0.01" placeholder="1800"/><label for="tone-input">INTENSIDADE DO JULGAMENTO</label><select id="tone-input"><option value="leve">Leve — decepção educada</option><option value="ácido">Ácido — sem carinho</option><option value="sem-piedade">Sem piedade — esculacho completo</option></select><button id="save-settings" class="solid-button">Salvar preferências</button></div>
+        <div class="settings-card"><h3>Conexão bancária</h3><p id="bank-explanation">Sem banco conectado. Os valores na tela são fictícios e servem para testar o mascote.</p><div id="connections-list" class="connections-list"></div><button id="connect-settings" class="solid-button black-button">Conectar via Open Finance ↗</button><button id="sync-settings" class="text-action">↻ Sincronizar agora</button><div class="notice" id="bank-notice">A versão offline usa dados fictícios. Para conectar um banco real, configure um servidor HTTPS privado com credenciais da Pluggy, nunca neste APK.</div>
+        <div class="server-config"><h3>Servidor bancário seguro</h3><p>Opcional. Use somente um servidor seu com HTTPS e autenticação; não cole aqui senha do banco nem Client Secret da Pluggy.</p><label for="server-url">ENDEREÇO HTTPS DO SEU SERVIDOR</label><input id="server-url" type="url" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="https://seu-servidor.example" /><label for="server-token">CHAVE DE ACESSO DO APP (NÃO É SENHA BANCÁRIA)</label><input id="server-token" type="password" autocomplete="off" placeholder="Token longo gerado no seu servidor"/><button id="save-server" class="solid-button black-button" type="button">Ativar servidor seguro</button><button id="clear-server" class="text-action" type="button">Voltar ao modo offline</button><p id="server-status" class="server-status"></p></div></div>
+      </div></section>
+    </main>
+
+    <nav class="mobile-nav" aria-label="Navegação principal"><button class="mobile-nav-item active" data-tab="home"><span>⌂</span>Início</button><button class="mobile-nav-item" data-tab="transactions"><span>☷</span>Extrato</button><button class="mobile-nav-item" data-tab="settings"><span>⚙</span>Ajustes</button></nav>
+  </div>
+
+  <div class="modal-backdrop" id="modal" hidden><div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal-top"><div><span class="section-eyebrow">TESTE MANUAL</span><h2 id="modal-title">Nova movimentação</h2></div><button id="close-modal" aria-label="Fechar" class="modal-close">✕</button></div><form id="transaction-form"><label for="transaction-desc">DESCRIÇÃO</label><input required id="transaction-desc" maxlength="150" placeholder="Ex.: iFood, Steam, salário..."/><label for="transaction-amount">VALOR EM REAIS</label><input required id="transaction-amount" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="59.90"/><label for="transaction-direction">TIPO</label><select id="transaction-direction"><option value="debit">Gasto</option><option value="credit">Entrada</option></select><button type="submit" class="solid-button">Registrar e ser julgado ↗</button></form><div class="notice">Para testar o mascote sem banco conectado. Uma conexão real exige um servidor seguro e credenciais Pluggy externas ao APK.</div></div></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
